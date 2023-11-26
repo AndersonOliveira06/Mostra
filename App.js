@@ -6,20 +6,20 @@ import Register from './pages/Register/Register'
 import Home from './pages/Home/Home'
 import Profile from './pages/Profile/Profile'
 import Locations from './pages/Locations/Locations'
-import Star from './pages/Star/Star'
+import Favorites from './pages/Favorites/Favorites'
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={Login} options={{ title: "Tela 01" }} />
-        <Stack.Screen name="Register" component={Register} options={{ title: "Tela 02" }} />
-        <Stack.Screen name="Home" component={Home} options={{ title: "Tela 03" }} />
-        <Stack.Screen name="Profile" component={Profile} options={{ title: "Tela 04" }} />
-        <Stack.Screen name="Locations" component={Locations} options={{ title: "Tela 05" }} />
-        <Stack.Screen name="Star" component={Star} options={{ title: "Tela 06" }} />
+      <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Login" component={Login} options={{ title: "Login" }} />
+        <Stack.Screen name="Register" component={Register} options={{ title: "Register" }} />
+        <Stack.Screen name="Home" component={Home} options={{ title: "Home" }} />
+        <Stack.Screen name="Profile" component={Profile} options={{ title: "Profile" }} />
+        <Stack.Screen name="Locations" component={Locations} options={{ title: "Locations" }} />
+        <Stack.Screen name="Favorites" component={Favorites} options={{ title: "Favorites" }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

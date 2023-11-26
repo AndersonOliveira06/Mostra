@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 
-const Star = () => {
+const Favorites = () => {
     return (
         <View>
             <Text>This is Page 01</Text>
@@ -8,4 +8,4 @@ const Star = () => {
     );
 };
 
-export default Star
+export default Favorites
