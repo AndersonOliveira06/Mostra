@@ -1,10 +1,10 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, updateProfile, deleteUser } from "firebase/auth"
-import { storage } from "../firebase/firebase_config"
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, deleteUser } from "firebase/auth"
+import { storage, auth } from "../firebase/firebase_config"
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage"
 
 class UsuarioService {
 
-    static signUp = (auth, email, password, firstName, lastName, photo, callback) => {
+    static signUp = (email, password, firstName, lastName, photo, callback) => {
 
         createUserWithEmailAndPassword(
             auth,
@@ -44,7 +44,7 @@ class UsuarioService {
     }
 
 
-    static signIn = (auth, email, password, callback) => {
+    static signIn = (email, password, callback) => {
 
         signInWithEmailAndPassword(
             auth,
@@ -60,7 +60,6 @@ class UsuarioService {
 
     static updateAccountData = (firstName, lastName, photo, callback) => {
 
-        const auth = getAuth()
         const user = auth.currentUser
 
         // Upload da imagem para o Storage
@@ -94,7 +93,6 @@ class UsuarioService {
 
     static deleteAccount = (callback) => {
 
-        const auth = getAuth()
         const user = auth.currentUser
 
         if (user !== null) {
@@ -109,7 +107,6 @@ class UsuarioService {
 
     static getAccountInfo = () => {
 
-        const auth = getAuth()
         const user = auth.currentUser
 
         if (user !== null) {

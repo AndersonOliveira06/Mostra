@@ -1,13 +1,11 @@
-import { getFirestore, collection, addDoc, query, where, getDocs, deleteDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { collection, addDoc, query, where, getDocs, deleteDoc } from "firebase/firestore"
+import { firestore, auth } from "../firebase/firebase_config"
 
 class VisitedService {
 
     static addLocalVisitado = (pontoTuristicoId, callback) => {
-        const db = getFirestore()
-        const lugaresVisitadosCollection = collection(db, "visitados")
+        const lugaresVisitadosCollection = collection(firestore, "visitados")
 
-        const auth = getAuth()
         const user = auth.currentUser
         const userUID = user.uid.toString()
 
@@ -30,10 +28,8 @@ class VisitedService {
     }
 
     static getLocalVisitadoByUser = (callback) => {
-        const db = getFirestore()
-        const lugaresVisitadosCollection = collection(db, "visitados")
+        const lugaresVisitadosCollection = collection(firestore, "visitados")
 
-        const auth = getAuth()
         const user = auth.currentUser
         const userUID = user.uid.toString()
 
@@ -44,7 +40,7 @@ class VisitedService {
                 .then(
                     (snapshot) => {
                         const lugaresVisitados = []
-                        const lugaresTuristicosCollection = collection(db, "star")
+                        const lugaresTuristicosCollection = collection(firestore, "star")
 
                         snapshot.forEach(
                             (document) => {
@@ -75,10 +71,8 @@ class VisitedService {
     }
 
     static deleteLugaresVisitadosByUser = (pontoTuristicoId, callback) => {
-        const db = getFirestore()
-        const lugaresVisitadosCollection = collection(db, "visitados")
+        const lugaresVisitadosCollection = collection(firestore, "visitados")
 
-        const auth = getAuth()
         const user = auth.currentUser
         const userUID = user.uid.toString()
 

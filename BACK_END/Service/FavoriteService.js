@@ -1,13 +1,11 @@
-import { getFirestore, collection, addDoc, query, where, getDocs, deleteDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { collection, addDoc, query, where, getDocs, deleteDoc } from "firebase/firestore"
+import { firestore, auth } from "../firebase/firebase_config"
 
 class FavoriteService {
 
     static addFavoritePlace = (pontoTuristicoId, callback) => {
-        const db = getFirestore()
-        const lugaresFavoritosCollection = collection(db, "favoritos")
+        const lugaresFavoritosCollection = collection(firestore, "favoritos")
 
-        const auth = getAuth()
         const user = auth.currentUser
         const userUID = user.uid.toString()
 
@@ -30,10 +28,8 @@ class FavoriteService {
     }
 
     static getLugaresFavoritosByUser = (callback) => {
-        const db = getFirestore()
-        const lugaresFavoritosCollection = collection(db, "favoritos")
+        const lugaresFavoritosCollection = collection(firestore, "favoritos")
 
-        const auth = getAuth()
         const user = auth.currentUser
         const userUID = user.uid.toString()
 
@@ -44,7 +40,7 @@ class FavoriteService {
                 .then(
                     (snapshot) => {
                         const lugaresFavoritos = []
-                        const lugaresTuristicosCollection = collection(db, "star")
+                        const lugaresTuristicosCollection = collection(firestore, "star")
     
                         snapshot.forEach(
                             (document) => {
@@ -75,10 +71,8 @@ class FavoriteService {
     }
 
     static deleteLugaresFavoritosByUser = (pontoTuristicoId, callback) => {
-        const db = getFirestore()
-        const lugaresFavoritosCollection = collection(db, "favoritos")
+        const lugaresFavoritosCollection = collection(firestore, "favoritos")
 
-        const auth = getAuth()
         const user = auth.currentUser
         const userUID = user.uid.toString()
 
