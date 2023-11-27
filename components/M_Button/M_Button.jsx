@@ -4,7 +4,7 @@ import M_Icon from "../M_Icon/M_Icon";
 
 import style from "./style";
 
-const M_Button = ({ action, title, color, icon }) => {
+const M_Button = ({ action, title, color, icon, customStyle }) => {
     const handlePress = () => {
         console.log("Button pressed");
     };
@@ -28,11 +28,12 @@ const M_Button = ({ action, title, color, icon }) => {
                     backgroundColor: pressed ? getBackgroundColor().colorPressed : getBackgroundColor().colorUnpressed,
                 },
                 style.button,
+                customStyle
             ]}
         >
             {icon && <M_Icon name={icon.name} size={icon.size} color={icon.color} />}
             {title ?
-                <Text style={[{ color: getBackgroundColor().textColor }, style.title]}>
+                <Text style={[{ color: getBackgroundColor().textColor }, style.title, customStyle]}>
                     {title}
                 </Text>
                 : null

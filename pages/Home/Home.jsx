@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Image, StatusBar } from 'react-native';
 
 import {
     requestForegroundPermissionsAsync,
@@ -15,7 +15,70 @@ import M_Button from '../../components/M_Button/M_Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import M_Icon from '../../components/M_Icon/M_Icon';
 
-const Home = ({navigation}) => {
+import AddressLoader from '../../components/loadingComponents/AddressLoader/AddressLoader';
+import M_ProfileModal from '../../components/M_ProfileModal/M_ProfileModal';
+
+const Home = ({ navigation }) => {
+    const styleMap = [
+        {
+            "featureType": "administrative.land_parcel",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "poi",
+            "elementType": "labels.text",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "poi.business",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "labels.icon",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "road.local",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "transit",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        }
+    ]
+
+    let markers = [
+        { latitude: -5.19845843651499, longitude: -39.2959195081123, title: 'Igreja da Matriz', description: 'Igrejinha só o show da cidade', image: require('../../assets/images/igreja.png') },
+        { latitude: -5.198914163000362, longitude: -39.29808209893969, title: 'Antonio', description: 'Conselhos conselheiros aa', image: require('../../assets/images/antonio.png') }
+    ]
+
     const [location, setLocation] = useState(null);
     const [street, setStreet] = useState('');
     const [state, setState] = useState('');
@@ -23,8 +86,13 @@ const Home = ({navigation}) => {
     const [city, setCity] = useState('');
     const [country, setCountry] = useState('');
 
+    const [loadingAddress, setLoadingAddress] = useState(true);
+
+    const [modalVisible, setModalVisible] = useState(false);
+
 
     const mapRef = useRef(null);
+
 
     useEffect(() => {
         requestLocationPermission();
@@ -54,6 +122,8 @@ const Home = ({navigation}) => {
             const currentPosition = await getCurrentPositionAsync();
             const address = await reverseGeocodeAsync(currentPosition.coords);
 
+            setLoadingAddress(false);
+
             setCountry(address[0].country);
             setDistrict(address[0].district);
             setState(address[0].region);
@@ -80,19 +150,50 @@ const Home = ({navigation}) => {
         }
     }
 
+    const renderMarkers = () => {
+        return markers.map((marker, index) => {
+            return (
+                <View key={index}>
+                    <Marker
+                        coordinate={{
+                            latitude: marker.latitude,
+                            longitude: marker.longitude,
+                        }}
+                        title={marker.title}
+                        description={marker.description}
+                    >
+                        <Image
+                            source={marker.image}
+                            style={style.marker}
+                            resizeMode='contain'
+                        />
+                    </Marker>
+                </View>
+            );
+        })
+    };
+
     return (
         <SafeAreaView style={style.container}>
+            <StatusBar backgroundColor={"#FFFCEE"} barStyle={'dark-content'}/>
             <View style={[style.header, style.elevationBottom]}>
+                {loadingAddress ? <AddressLoader /> : null}
                 <View>
                     <Text style={style.cityText}>{city}, {state} | {country}</Text>
                     <Text style={style.streetText}>{street}</Text>
                     <Text style={style.districtText}>{district}</Text>
                 </View>
-                <M_Button icon={{ name: "UserCog", size: 40, color: '#0C2F2C' }} />
+                <M_ProfileModal style={{ display: 'none' }} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+                <M_Button
+                    action={() => setModalVisible(true)}
+                    icon={{ name: "UserCog", size: 40, color: '#0C2F2C' }}
+                />
             </View>
-            <View>
+            <View style={style.mapView}>
                 {location &&
                     <MapView
+                        loadingEnabled={true}
+                        customMapStyle={styleMap}
                         ref={mapRef}
                         style={style.map}
                         initialRegion={{
@@ -110,9 +211,11 @@ const Home = ({navigation}) => {
                             title="Você está aqui"
                             description="Você está aqui"
                         />
+                        {renderMarkers()}
                     </MapView>
                 }
             </View>
+
             <View style={[style.footer, style.elevationTop]}>
                 <Pressable
                     onPress={goToLocations}
@@ -135,7 +238,7 @@ const Home = ({navigation}) => {
                         style.mainButton,
                     ]}
                 >
-                    <M_Icon name="MapPin" size={85} color="#FF6915" /> 
+                    <M_Icon name="MapPin" size={85} color="#FF6915" />
                 </Pressable>
                 <Pressable
                     onPress={goToFavorites}
@@ -146,11 +249,11 @@ const Home = ({navigation}) => {
                         style.mainButton,
                     ]}
                 >
-                    <M_Icon name="Star" size={45} color='#0C2F2C'/>
+                    <M_Icon name="Star" size={45} color='#0C2F2C' />
                     <Text style={style.mainButtonText}>Favoritos</Text>
                 </Pressable>
             </View>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 };
 

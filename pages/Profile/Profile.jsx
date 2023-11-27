@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 const Profile = () => {
     return (
         <View>
-            <Text>This is Page 01</Text>
+            <Text>PROFILE PORRA</Text>
         </View>
     );
 };

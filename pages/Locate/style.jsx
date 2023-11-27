@@ -15,74 +15,73 @@ const style = StyleSheet.create({
         justifyContent: "space-between",
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
-        zIndex: 2
+        zIndex: 3,
     },
 
-    cityText: {
-        fontSize: 14,
-        letterSpacing: 2,
-        fontWeight: "100"
-    },
-
-    streetText: {
-        fontSize: 24,
+    mainText: {
+        fontSize: 28,
         fontWeight: "bold",
         color: "#FF6915",
     },
 
-    districtText: {
-        fontSize: 18,
-        color: "#0C2F2C",
-    },
-
-    mapView:{
+    body: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
     },
 
-    map: {
-        width: "100%",
-        height: "75%",
-        flexGrow: 1,
-    },
-
-    marker: {
-        width: 60,
-        height: 60,
-    },
-
-    footer: {
-        height: "12%",
+    imageLocate: {
+        flex: 1,
         flexDirection: "row",
-        justifyContent: "center",
-        gap: 40,
-        alignItems: "center",
-        backgroundColor: "#FFFCEE",
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        zIndex: 3
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
     },
-
-    mainButton: {
-        width: 80,
-        height: 80,
-        position: "relative",
-        top: -50,
-        borderRadius: 50,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-
-    mainButtonText: {
-        fontSize: 14,
-        backgroundColor: "#EDE8D6",
-        paddingHorizontal: 10,
-        borderRadius: 15,
-        paddingVertical: 2,
+    
+    overlay: {
         position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0,0,0, 0.3)",
+        borderRadius: 20,
+    },
+
+    image:{
+        flex: 1,
+        backgroundColor: "#FFFCEE",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+    },
+
+    buttonsView: {
+        // flex: 1,
+        flexDirection: "row",
+        gap: 5,
+        justifyContent: "flex-end",
+        alignItems: "flex-end",
+    },
+
+    image: {
+        width: "100%",
+        height: "100%",
+    },
+
+    content: {
+        flex: 3,
+    },
+
+    headerBody: {
+        flexDirection: "row",
+        alignItems: "center",
+        paddingVertical: 20,
+        paddingHorizontal: 15,
+        gap: 20,
+    },
+
+    textBody: {
+        fontSize: 24,
         fontWeight: "bold",
-        bottom: -30,
+        color: "#0C2F2C",
     },
 
     elevationBottom: {
@@ -108,6 +107,11 @@ const style = StyleSheet.create({
 
         elevation: 21,
     },
+
+    list: {
+        flex: 1,
+        // paddingHorizontal: "5%",
+    }
 
 })
 
