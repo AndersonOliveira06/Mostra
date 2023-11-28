@@ -33,7 +33,7 @@ const M_Button = ({ action, title, color, icon, customStyle }) => {
         >
             {icon && <M_Icon name={icon.name} size={icon.size} color={icon.color} />}
             {title ?
-                <Text style={[{ color: getBackgroundColor().textColor }, style.title, customStyle]}>
+                <Text style={[{ color: getBackgroundColor().textColor }, style.title]}>
                     {title}
                 </Text>
                 : null

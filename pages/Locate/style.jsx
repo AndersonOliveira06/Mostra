@@ -7,32 +7,12 @@ const style = StyleSheet.create({
     },
 
     header: {
-        paddingHorizontal: "5%",
-        height: "13%",
-        flexDirection: "row",
-        backgroundColor: "#FFFCEE",
-        alignItems: "center",
-        justifyContent: "space-between",
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
-        zIndex: 3,
-    },
-
-    mainText: {
-        fontSize: 28,
-        fontWeight: "bold",
-        color: "#FF6915",
-    },
-
-    body: {
-        flex: 1,
+        flex: 3,
     },
 
     imageLocate: {
         flex: 1,
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
+        // position: 'relative'
     },
     
     overlay: {
@@ -41,22 +21,41 @@ const style = StyleSheet.create({
         left: 0,
         width: "100%",
         height: "100%",
-        backgroundColor: "rgba(0,0,0, 0.3)",
-        borderRadius: 20,
+        backgroundColor: "rgba(0,0,0, 0.4)",
     },
-
+    
     image:{
         flex: 1,
-        backgroundColor: "#FFFCEE",
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
+        justifyContent: "flex-end",
+        alignContent: "flex-end",
     },
 
-    buttonsView: {
-        // flex: 1,
+    locateHeader: {
+        flex: 1,
         flexDirection: "row",
-        gap: 5,
+        justifyContent: "space-between",
+        alignItems: "flex-end",
+        padding: 20,
+    },
+
+    locate: {
+        flex: 2,
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
+    },
+    
+    textLocate:{
+        fontSize: 24,
+        fontWeight: "bold",
+        color: "#FFFCEE",
+    },
+    
+    buttonsView: {
+        flex: 1,
+        // backgroundColor: "red",
+        gap: 2,
+        flexDirection: "row",
         justifyContent: "flex-end",
         alignItems: "flex-end",
     },
@@ -67,7 +66,76 @@ const style = StyleSheet.create({
     },
 
     content: {
-        flex: 3,
+        flex: 8,
+        padding: "5%",
+        paddingBottom: 0,
+        gap: 20,
+    },
+
+    scrollContent: {
+        gap: 30,
+    },
+    
+    aboutContent: {
+        flex: 1,
+        // paddingVertical: 20,
+    },
+
+    aboutText: {
+        fontSize: 24,
+        fontWeight: "bold",
+        color: "#0C2F2C",
+    },
+
+    imagesLocate: {
+        width: 150,
+        height: 150,
+        borderRadius: 5,
+    },
+
+    actionArea:{
+        flex: 1.5,
+        flexDirection: "row",
+        // backgroundColor: "red",
+        paddingHorizontal: "5%",
+        // backgroundColor: "red",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+
+    placeView: {
+        flex: 1
+    },
+
+    textStreet:{
+        fontSize: 16,
+        fontWeight: "bold",
+        color: "#FF6915",
+    },
+
+    textDistrict:{
+        fontSize: 14,
+        fontWeight: "normal",
+        color: "#0C2F2C",
+    },
+
+    buttonAction: {
+        flex: 1,
+        // height: "100%",
+        // width: "50%",
+        // marginHorizontal: "5%",
+        // height: 60,
+        // borderRadius: 10,
+        // justifyContent: "center",
+        // alignItems: "center",
+    },
+
+    descriptionText: {
+        fontSize: 16,
+        fontWeight: "normal",
+        color: "#0C2F2C",
+        lineHeight: 24,
+        paddingTop: 10,
     },
 
     headerBody: {

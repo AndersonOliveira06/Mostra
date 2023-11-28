@@ -13,38 +13,42 @@ const Locations = ({ navigation }) => {
         {
             name: "Casa do Pastor Valdemir",
             image: require('../../assets/images/irmao.jpg'),
+            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
         },
         {
             name: "Casa do Pastor Valdemir",
             image: require('../../assets/images/irmao.jpg'),
+            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
         },
         {
             name: "Casa do Pastor Valdemir",
             image: require('../../assets/images/irmao.jpg'),
+            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
         },
         {
             name: "Casa do Pastor Valdemir",
             image: require('../../assets/images/irmao.jpg'),
+            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
         },
         {
             name: "Casa do Pastor Valdemir",
             image: require('../../assets/images/irmao.jpg'),
+            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
         },
         {
             name: "Casa do Pastor Valdemir",
             image: require('../../assets/images/irmao.jpg'),
+            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
         },
         {
             name: "Casa do Pastor Valdemir",
             image: require('../../assets/images/irmao.jpg'),
+            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
         },
         {
             name: "Casa do Pastor Valdemir",
             image: require('../../assets/images/irmao.jpg'),
-        },
-        {
-            name: "Casa do Pastor Valdemir",
-            image: require('../../assets/images/irmao.jpg'),
+            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
         },
     ];
 
