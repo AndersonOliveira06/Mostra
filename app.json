@@ -11,6 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "androidStatusBar": {
+      "translucent": true
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -21,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.yurilimadev.Mostra"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "17f3aaf8-5ac1-4aa3-9678-e4fe1d9e7e79"
+      }
     }
   }
 }

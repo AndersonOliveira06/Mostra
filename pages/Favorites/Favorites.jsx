@@ -6,10 +6,11 @@ import M_ProfileModal from '../../components/M_ProfileModal/M_ProfileModal';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import M_Icon from '../../components/M_Icon/M_Icon';
 import M_CardLocation from '../../components/M_CardLocation/M_CardLocation';
+import M_BoxLocation from '../../components/M_BoxLocation/M_BoxLocation';
 
-const Locations = ({ navigation }) => {
+const Favorites = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const locations = [
+    const favorites = [
         {
             name: "Casa do Pastor Valdemir",
             image: require('../../assets/images/irmao.jpg'),
@@ -52,12 +53,11 @@ const Locations = ({ navigation }) => {
         },
     ];
 
-    // Utilize a constante 'locations' no seu código onde for necessário.
     return (
         <SafeAreaView style={style.container}>
             {/* <View style={[style.header, style.elevationBottom]}>
                 <View>
-                    <Text style={style.mainText}>Visite um (ou mais) {'\n'}lugares hoje!</Text>
+                    <Text style={style.mainText}>Seus lugares favoritos{'\n'}em um só lugar</Text>
 
                 </View>
                 <M_ProfileModal style={{ display: 'none' }} modalVisible={modalVisible} setModalVisible={setModalVisible} />
@@ -73,12 +73,13 @@ const Locations = ({ navigation }) => {
                         icon={{ name: "ArrowLeft", size: 30, color: '#0C2F2C' }}
                     />
 
-                    <Text style={style.textBody}>Locais</Text>
+                    <Text style={style.textBody}>Galeria de lugares</Text>
                 </View>
                 <View style={style.list}>
                     <FlatList
-                        data={locations}
-                        renderItem={({ item }) => <M_CardLocation location={item} />}
+                        horizontal={true}
+                        data={favorites}
+                        renderItem={({ item }) => <M_BoxLocation location={item}/>}
                     ></FlatList>
                 </View>
             </View>
@@ -86,4 +87,4 @@ const Locations = ({ navigation }) => {
     );
 };
 
-export default Locations
+export default Favorites

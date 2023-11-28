@@ -15,74 +15,31 @@ const style = StyleSheet.create({
         justifyContent: "space-between",
         borderBottomLeftRadius: 15,
         borderBottomRightRadius: 15,
-        zIndex: 2
+        zIndex: 3,
     },
 
-    cityText: {
-        fontSize: 14,
-        letterSpacing: 2,
-        fontWeight: "100"
-    },
-
-    streetText: {
-        fontSize: 24,
+    mainText:{
+        fontSize: 28,
         fontWeight: "bold",
         color: "#FF6915",
     },
 
-    districtText: {
-        fontSize: 18,
-        color: "#0C2F2C",
-    },
-
-    mapView:{
+    body: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
     },
 
-    map: {
-        width: "100%",
-        height: "75%",
-        flexGrow: 1,
-    },
-
-    marker: {
-        width: 60,
-        height: 60,
-    },
-
-    footer: {
-        height: "12%",
+    headerBody: {
         flexDirection: "row",
-        justifyContent: "center",
-        gap: 40,
         alignItems: "center",
-        backgroundColor: "#FFFCEE",
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        zIndex: 3
+        paddingVertical: 20,
+        paddingHorizontal: 15,
+        gap: 20,
     },
 
-    mainButton: {
-        width: 80,
-        height: 80,
-        position: "relative",
-        top: -50,
-        borderRadius: 50,
-        alignItems: "center",
-        justifyContent: "center",
-    },
-
-    mainButtonText: {
-        fontSize: 14,
-        backgroundColor: "#EDE8D6",
-        paddingHorizontal: 10,
-        borderRadius: 15,
-        paddingVertical: 2,
-        position: "absolute",
+    textBody: {
+        fontSize: 24,
         fontWeight: "bold",
-        bottom: -30,
+        color: "#0C2F2C",
     },
 
     elevationBottom: {
@@ -108,6 +65,11 @@ const style = StyleSheet.create({
 
         elevation: 21,
     },
+
+    list: {
+        flex: 1,
+        // paddingHorizontal: "5%",
+    }
 
 })
 
