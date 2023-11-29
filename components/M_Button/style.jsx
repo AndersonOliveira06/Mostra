@@ -6,12 +6,12 @@ const style = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
+        gap: 10,
     },
     
     title: {
         fontSize: 18,
         fontWeight: "bold",
-        paddingLeft: 15,
         paddingVertical: 15,
     }
 });

@@ -25,6 +25,11 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyAuMdqL4LYqExPUiX3TpggVcY64d_k54E4"
+        }
+      },
       "package": "com.yurilimadev.Mostra"
     },
     "web": {

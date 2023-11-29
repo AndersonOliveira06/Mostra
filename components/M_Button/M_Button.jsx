@@ -5,9 +5,6 @@ import M_Icon from "../M_Icon/M_Icon";
 import style from "./style";
 
 const M_Button = ({ action, title, color, icon, customStyle }) => {
-    const handlePress = () => {
-        console.log("Button pressed");
-    };
 
     const getBackgroundColor = () => {
         switch (color) {

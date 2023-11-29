@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { View, Text, Pressable, Image, StatusBar } from 'react-native';
+import { View, Text, Pressable, Image, StatusBar, ToastAndroid } from 'react-native';
 
 import {
     requestForegroundPermissionsAsync,
@@ -10,6 +10,7 @@ import {
 } from 'expo-location';
 
 import MapView, { Marker } from 'react-native-maps';
+import { PROVIDER_GOOGLE } from 'react-native-maps';
 import style from './style';
 import M_Button from '../../components/M_Button/M_Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -134,6 +135,17 @@ const Home = ({ navigation }) => {
         }
     }
 
+    showToast = () => {
+        ToastAndroid.showWithGravityAndOffset(
+            'A wild toast appeared!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            105,
+            -500,
+          );
+      
+    };
+
     goToLocations = () => {
         navigation.navigate('Locations');
     }
@@ -147,6 +159,7 @@ const Home = ({ navigation }) => {
             mapRef.current.animateCamera({
                 center: location.coords
             })
+            showToast();
         }
     }
 
@@ -175,7 +188,7 @@ const Home = ({ navigation }) => {
 
     return (
         <SafeAreaView style={style.container}>
-            <StatusBar backgroundColor={"#FFFCEE"} barStyle={'dark-content'}/>
+            <StatusBar backgroundColor={"#FFFCEE"} barStyle={'dark-content'} />
             <View style={[style.header, style.elevationBottom]}>
                 {loadingAddress ? <AddressLoader /> : null}
                 <View>
@@ -192,6 +205,7 @@ const Home = ({ navigation }) => {
             <View style={style.mapView}>
                 {location &&
                     <MapView
+                        provider={PROVIDER_GOOGLE}
                         loadingEnabled={true}
                         customMapStyle={styleMap}
                         ref={mapRef}
@@ -238,7 +252,10 @@ const Home = ({ navigation }) => {
                         style.mainButton,
                     ]}
                 >
-                    <M_Icon name="MapPin" size={85} color="#FF6915" />
+                    <Image
+                        source={require('../../assets/images/Icon.png')}
+                        style={{ width: 95, height: 95 }}
+                    />
                 </Pressable>
                 <Pressable
                     onPress={goToFavorites}
