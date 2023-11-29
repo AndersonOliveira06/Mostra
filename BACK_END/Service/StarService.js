@@ -2,38 +2,35 @@ import { collection, getDocs } from 'firebase/firestore'
 import { firestore } from '../firebase/firebase_config'
 
 class StarService {
-    static getStars = (callback) => {
+    static getStars = async (callback) => {
+        try {
+            const starCollection = collection(firestore, "star")
+            const snapshot = await getDocs(starCollection)
 
-        const starCollection = collection(firestore, "star")
+            const stars = [];
 
-        getDocs(starCollection)
-            .then(
-                (snapshot) => {
-                    const stars = []
+            snapshot.forEach((document) => {
+                const data = document.data()
 
-                    snapshot.forEach(
-                        (document) => {
-                            const data = document.data()
-
-                            const star = {
-                                id: document.id,
-                                descricao: data.descricao,
-                                fotos: data.fotos,
-                                localizacao: {
-                                    endereco: data.localizacao.endereco,
-                                    latitude: data.localizacao.latitude,
-                                    longitude: data.localizacao.longitude
-                                },
-                                name: data.name
-                            }
-
-                            stars.push(star)
-                        })
-
-                    callback(stars)
+                const star = {
+                    id: document.id,
+                    descricao: data.descricao,
+                    fotos: data.fotos,
+                    localizacao: {
+                        endereco: data.localizacao.endereco,
+                        latitude: data.localizacao.latitude,
+                        longitude: data.localizacao.longitude,
+                    },
+                    name: data.name,
                 }
-            )
-            .catch(error => console.log("Erro ao tentar pegar os dados do Firestore: ", error))
+
+                stars.push(star)
+            })
+
+            callback(stars);
+        } catch (error) {
+            console.log("Erro ao tentar pegar os dados do Firestore: ", error)
+        }
     }
 }
 

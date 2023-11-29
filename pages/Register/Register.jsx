@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View, Text, Image, ImageBackground } from 'react-native';
 import M_Button from '../../components/M_Button/M_Button';
 import M_Input from '../../components/M_Input/M_Input';
+import UsuarioService from "../../BACK_END/Service/UsuarioService"
 
 import style from './style';
 
@@ -40,6 +41,19 @@ const Register = ({ navigation }) => {
         navigation.navigate('Home');
     }
 
+    const acaoBotao = () => {
+        UsuarioService.signUp(
+            email,
+            password,
+            name,
+            lastName,
+            (userCredential) => {
+                console.log(userCredential)
+                goToHome()
+            }
+        )
+    }
+
     return (
         <ImageBackground
             source={require('../../assets/images/bgImage.png')}
@@ -49,7 +63,7 @@ const Register = ({ navigation }) => {
                 <View style={style.header}>
                     <M_Button
                         action={goToBack}
-                        icon={{name: "ArrowLeft", size: 40, color: "#000"}}
+                        icon={{ name: "ArrowLeft", size: 40, color: "#000" }}
                     />
                 </View>
                 <Image
@@ -81,7 +95,7 @@ const Register = ({ navigation }) => {
                 />
                 <M_Button
                     title="Cadastrar"
-                    action={goToHome}
+                    action={acaoBotao}
                     color="azul"
                 />
             </View>
