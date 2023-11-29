@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { View, Text, Image, ImageBackground } from 'react-native';
+import { View, Image, ImageBackground } from 'react-native';
 import M_Button from '../../components/M_Button/M_Button';
 import M_Input from '../../components/M_Input/M_Input';
+import UsuarioService from "../../BACK_END/Service/UsuarioService"
 
 import style from './style';
 
@@ -9,11 +10,11 @@ const Login = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    handleChangeEmail = (value) => {
+    const handleChangeEmail = (value) => {
         setEmail(value);
     };
 
-    handleChangePassword = (value) => {
+    const handleChangePassword = (value) => {
         setPassword(value);
     }
 
@@ -24,6 +25,18 @@ const Login = ({ navigation }) => {
     const goToRegister = () => {
         navigation.navigate('Register');
     };
+
+    const acaoBotao = () => {
+        UsuarioService.signIn(
+            email,
+            password,
+            (userCredential) => {
+                console.log(userCredential)
+                goToHome()
+            }
+        )
+    }
+
 
     return (
         <ImageBackground
