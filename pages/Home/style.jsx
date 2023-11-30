@@ -77,9 +77,10 @@ const style = StyleSheet.create({
     mainButtonText: {
         fontSize: 14,
         backgroundColor: "#EDE8D6",
-        paddingHorizontal: 10,
         borderRadius: 15,
+        textAlign: "center",
         paddingVertical: 2,
+        width: "100%",
         position: "absolute",
         fontWeight: "bold",
         bottom: -30,

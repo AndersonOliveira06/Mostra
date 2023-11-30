@@ -7,7 +7,6 @@ const style = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         width: Dimensions.get('window').width - 40,
-        backgroundColor: "red",
         justifyContent: "center",
         // paddingHorizontal: 50,
         marginHorizontal: 20,
@@ -34,32 +33,32 @@ const style = StyleSheet.create({
     
     card: {
         flex: 1,
-        // width: "100%",
-        flexDirection: "row",
-        alignItems: "flex-end",
+        width: "100%",
+        height: "100%",
         justifyContent: "space-between",
         paddingHorizontal: 40,
         paddingVertical: 40,
     },
     
     textView: {
-        flex: 3,
+        // flex: 1,
         flexDirection: "row",
     },
     
     locationName: {
         flex: 1,
-        fontSize: 45,
+        fontSize: 40,
         fontWeight: 'bold',
         color: "#FFFCEE",
     },
     
     buttonsView:{
-        flex: 1,
+        // flex: 1,
+        width: "100%",
         flexDirection: "row",
         justifyContent: "flex-end",
         alignSelf: "flex-start",
-        gap: 5,
+        gap: 20,
         marginTop: -10,
     },
 

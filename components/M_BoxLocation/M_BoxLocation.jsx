@@ -3,10 +3,11 @@ import M_Icon from '../M_Icon/M_Icon';
 import M_Button from '../M_Button/M_Button';
 import style from './style';
 
+
 import * as RootNavigation from '../../RootNavigation.js';
 
 
-const M_BoxLocation = ({ location }) => {
+const M_BoxLocation = ({ location, isFavorite }) => {
 
     const goToLocation = () => {
         RootNavigation.navigate('Locate', { locate: location });
@@ -23,32 +24,31 @@ const M_BoxLocation = ({ location }) => {
             ]}
         >
             <ImageBackground
-                source={location.image}
+                source={{ uri: location.fotos[0] }}
                 imageStyle={{ borderRadius: 20 }}
                 resizeMode='cover'
                 style={style.background}
             >
                 <View style={style.overlay}></View>
                 <View style={style.card}>
-                    <View style={style.textView}>
-                        <Text style={style.locationName}>{location.name}</Text>
-                    </View>
                     <View style={style.buttonsView}>
-                        <M_Button
-                            action={() => { }}
-                            customStyle={{width: 50, height: 50}}
-                            icon={{ name: "Heart", size: 25, color: '#FFFCEE' }}
+                        {location.isFavorite ?
+
+                            <M_Icon
+                                name='Star'
+                                size={25}
+                                color='#FF6915'
+                                fill='#FF6915'
+                            />
+                            : null
+                        }
+                        <Image
+                            source={require('../../assets/images/checkFilled.png')}
+                            style={{ width: 25, height: 25 }}
                         />
-                        {/* <M_Button
-                            action={() => { }}
-                            customStyle={{width: 50, height: 50}}
-                            icon={{ name: "CheckSquare2", size: 25, color: '#FFFCEE' }}
-                        /> */}
-                        <M_Button
-                            action={() => { }}
-                            customStyle={{width: 50, height: 50}}
-                            icon={{ name: "Share2", size: 25, color: '#FFFCEE' }}
-                        />
+                    </View>
+                    <View style={style.textView}>
+                        <Text style={style.locationName}>{location.nome}</Text>
                     </View>
                 </View>
             </ImageBackground>

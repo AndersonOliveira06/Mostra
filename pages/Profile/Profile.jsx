@@ -1,19 +1,52 @@
 import { View, Text, Image } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import style from './style'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import M_Button from '../../components/M_Button/M_Button';
 import M_ProfileModal from '../../components/M_EditProfileModal/M_EditProfileModal';
-// import MaskedView from '@react-native-masked-view/masked-view';
+
+import UsuarioService from '../../BACK_END/Service/UsuarioService';
+
+import FavoriteService from '../../BACK_END/Service/FavoriteService';
+import VisitedService from '../../BACK_END/Service/VisitedService';
 
 const Profile = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [user, setUser] = useState({});
+    const [favoriteds, setFavoriteds] = useState(0);
+    const [visiteds, setVisiteds] = useState(0);
 
-    const user = {
-        nome: "Valdemir Queiroz",
-        email: "valdemasgloria@jc.com",
-        image: require("../../assets/images/irmao.jpg"),
-    }
+    useEffect(() => {
+        const fetchLugaresFavoritos = async () => {
+            try {
+                await FavoriteService.getLugaresFavoritosByUser((lugaresFavoritos) => {
+                    setFavoriteds(lugaresFavoritos.length)
+                });
+            } catch (error) {
+                console.error('Erro ao buscar lugares favoritos:', error);
+            }
+        };
+
+        fetchLugaresFavoritos();
+    })
+
+    useEffect(() => {
+        const fetchLugaresVisitados = async () => {
+            try {
+                await VisitedService.getLugaresVisitadosByUser((lugaresVisitados) => {
+                    setVisiteds(lugaresVisitados.length)
+                });
+            } catch (error) {
+                console.error('Erro ao buscar lugares visitados', error);
+            }
+        };
+
+        fetchLugaresVisitados();
+    }, [])
+
+    useEffect(() => {
+        setUser(UsuarioService.getAccountInfo())
+    }, [])
 
     const image = require("../../assets/images/base.png");
 
@@ -36,32 +69,32 @@ const Profile = ({ navigation }) => {
                     <View style={style.editButtonView}>
                         <M_ProfileModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
                         <M_Button
-                            action={() => {setModalVisible(true)}}
+                            action={() => { setModalVisible(true) }}
                             customStyle={style.editButton}
                             icon={{ name: "PenSquare", size: 30, color: 'white' }}
                         />
                     </View>
                     <View style={style.formPhotoView}>
-                        <Image source={user.image} style={style.formPhoto} />
+                        <Image source={{ uri: user.photoURL }} style={style.formPhoto} />
                     </View>
                 </View>
                 <View style={style.data}>
                     <View style={style.dataProfile}>
-                        <Text style={style.name}>{user.nome}</Text>
+                        <Text style={style.name}>{user.displayName}</Text>
                         <Text style={style.email}>{user.email}</Text>
                     </View>
                     <View style={style.dataLocations}>
                         <View style={style.dataLocation}>
                             <Text style={style.label}>ESTRELAS ALCANÇADAS</Text>
-                            <Text style={style.value}>9 stars</Text>
+                            <Text style={style.value}>{visiteds} stars</Text>
                         </View>
                         <View style={style.dataLocation}>
                             <Text style={style.label}>ESTRELAS FAVORITAS</Text>
-                            <Text style={style.value}>9 stars</Text>
+                            <Text style={style.value}>{favoriteds} stars</Text>
                         </View>
                         <View style={style.dataLocation}>
                             <Text style={style.label}>DISTÂNCIA PERCORRIDA</Text>
-                            <Text style={style.value}>100 Km</Text>
+                            <Text style={[style.value, {fontSize: 12, marginVertical: 5}]}>Feature em desenvolvimento</Text>
                         </View>
                     </View>
                 </View>

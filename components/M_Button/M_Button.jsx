@@ -28,7 +28,7 @@ const M_Button = ({ action, title, color, icon, customStyle }) => {
                 customStyle
             ]}
         >
-            {icon && <M_Icon name={icon.name} size={icon.size} color={icon.color} />}
+            {icon && <M_Icon name={icon.name} size={icon.size} color={icon.color} strokeOpacity={icon.strokeOpacity} fill={icon.fill ? icon.fill: 'none'}/>}
             {title ?
                 <Text style={[{ color: getBackgroundColor().textColor }, style.title]}>
                     {title}

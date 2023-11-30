@@ -41,12 +41,13 @@ const Register = ({ navigation }) => {
         navigation.navigate('Home');
     }
 
-    const acaoBotao = () => {
+    const registerAction = () => {
         UsuarioService.signUp(
             email,
             password,
             name,
             lastName,
+
             (userCredential) => {
                 console.log(userCredential)
                 goToHome()
@@ -95,7 +96,7 @@ const Register = ({ navigation }) => {
                 />
                 <M_Button
                     title="Cadastrar"
-                    action={acaoBotao}
+                    action={registerAction}
                     color="azul"
                 />
             </View>

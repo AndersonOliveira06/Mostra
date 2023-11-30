@@ -3,7 +3,9 @@ import style from './style';
 import M_Button from '../M_Button/M_Button';
 import M_Input from '../M_Input/M_Input';
 import { ScrollView } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import UsuarioService from '../../BACK_END/Service/UsuarioService';
 
 import * as RootNavigation from '../../RootNavigation.js';
 
@@ -14,6 +16,15 @@ const M_ProfileModal = ({ modalVisible, setModalVisible }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        setUser(UsuarioService.getAccountInfo())
+        setName(UsuarioService.getAccountInfo().displayName.split(' ')[0])
+        setLastName(UsuarioService.getAccountInfo().displayName.split(' ')[1])
+        setEmail(UsuarioService.getAccountInfo().email)
+    }, [])
 
     const handleChangeName = (value) => {
         setName(value);
@@ -37,8 +48,29 @@ const M_ProfileModal = ({ modalVisible, setModalVisible }) => {
 
 
 
-    goToProfile = () => {
+    const goToProfile = () => {
         RootNavigation.navigate('Profile');
+        setModalVisible(!modalVisible);
+    }
+
+    const updateAction = () => {
+        UsuarioService.updateAccountData(
+            name,
+            lastName,
+            email,
+            password,
+            (message) => {
+                console.log(message)
+                goToProfile()
+            }
+        )
+    }
+
+    const deleteAccount = () => {
+        UsuarioService.deleteAccount((message) => {
+            console.log(message)
+            RootNavigation.navigate('Login');
+        });
         setModalVisible(!modalVisible);
     }
 
@@ -87,14 +119,14 @@ const M_ProfileModal = ({ modalVisible, setModalVisible }) => {
                                     onChange={handleChangeEmail}
                                 />
                                 <M_Input
-                                    placeholder="Digite sua senha"
+                                    placeholder="Digite sua nova senha"
                                     password={true}
                                     value={password}
                                     customStyle={style.input}
                                     onChange={handleChangePassword}
                                 />
                                 <M_Input
-                                    placeholder="Confirme sua senha"
+                                    placeholder="Confirme sua nova senha"
                                     password={true}
                                     value={confirmPassword}
                                     customStyle={style.input}
@@ -104,15 +136,15 @@ const M_ProfileModal = ({ modalVisible, setModalVisible }) => {
                         </View>
                         <View style={style.modalFooter}>
                             <M_Button
-                                action={goToProfile}
+                                action={updateAction}
                                 title="Salvar"
                                 color="azul"
                                 customStyle={style.button}
                                 icon={{ name: 'Check', size: 30, color: '#17548C' }}
                             />
                             <M_Button
-                                action={() => setModalVisible(!modalVisible)}
-                                title="Cancelar"
+                                action={deleteAccount}
+                                title="Deletar conta"
                                 color="amarelo"
                                 customStyle={style.button}
                             />
