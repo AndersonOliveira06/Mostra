@@ -1,5 +1,7 @@
-import { collection, addDoc, query, where, getDocs, deleteDoc } from "firebase/firestore"
+import { collection, addDoc, query, where, getDocs, deleteDoc, doc, getDoc } from "firebase/firestore"
 import { firestore, auth } from "../firebase/firebase_config"
+import { FieldPath } from "firebase/firestore"
+
 
 class FavoriteService {
 
@@ -29,32 +31,51 @@ class FavoriteService {
     static getLugaresFavoritosByUser = async (callback) => {
         try {
             const lugaresFavoritosCollection = collection(firestore, "favoritos")
-
+            const lugaresTuristicosCollection = collection(firestore, "star")
+    
             const user = auth.currentUser
-            const userUID = user.uid.toString()
-
-            if (user !== null) {
-                const q = query(lugaresFavoritosCollection, where("user_id", "==", userUID))
-
-                const snapshot = await getDocs(q)
-                const lugaresFavoritos = []
-                const lugaresTuristicosCollection = collection(firestore, "star")
-
-                for (const document of snapshot.docs) {
-                    const { star_id, user_id } = document.data()
-
-                    const c = query(lugaresTuristicosCollection, where("id", "==", star_id))
-
-                    const querySnapshot = await getDocs(c)
-                    const doc = querySnapshot.docs[0]
-
-                    if (doc) {
-                        const { descricao, fotos, localizacao, nome } = doc.data()
-                        lugaresFavoritos.push({ star_id, user_id, nome, descricao, fotos, localizacao })
-                    }
+    
+            if (user && user.uid) {
+                const userUID = user.uid.toString()
+    
+                // Consulta para obter todos os documentos da coleção 'favoritos' para o usuário logado
+                const favoritosQuery = query(lugaresFavoritosCollection, where("user_id", "==", userUID))
+                const favoritosSnapshot = await getDocs(favoritosQuery)
+    
+                let lugaresIdFavoritos = []
+    
+                // Itera sobre os documentos da coleção 'favoritos'
+                for (const favoritoDoc of favoritosSnapshot.docs) {
+                    const { star_id } = favoritoDoc.data()
+                    lugaresIdFavoritos.push(star_id)
                 }
+    
+                callback(lugaresIdFavoritos)
+            } else {
+                console.log("Não existe usuário logado")
+            }
+        } catch (error) {
+            console.log("Erro ao tentar pegar os dados do Firestore: ", error)
+        }
+    }
 
-                callback(lugaresFavoritos)
+    static getLugaresFavoritosById = async (list, callback) => {
+        try {
+    
+            const user = auth.currentUser
+    
+            if (user && user.uid) {
+                let lugaresFavoritos = []
+    
+                await Promise.all(list.map(async (id) => {
+                    const docRef = doc(firestore, "star", id)
+                    const favoritoDoc = await getDoc(docRef)
+                    lugaresFavoritos.push({ id: favoritoDoc.id, ...favoritoDoc.data() })
+                }))
+                
+                if(lugaresFavoritos.length === list.length) {
+                    callback(lugaresFavoritos)
+                }
 
             } else {
                 console.log("Não existe usuário logado")
@@ -63,6 +84,7 @@ class FavoriteService {
             console.log("Erro ao tentar pegar os dados do Firestore: ", error)
         }
     }
+    
 
     static deleteLugaresFavoritosByUser = async (pontoTuristicoId, callback) => {
         try {

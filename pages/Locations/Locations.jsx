@@ -7,52 +7,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import M_Icon from '../../components/M_Icon/M_Icon';
 import M_CardLocation from '../../components/M_CardLocation/M_CardLocation';
 
+import StarService from '../../BACK_END/Service/StarService';
+
 const Locations = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
-    const locations = [
-        {
-            name: "Casa do Pastor Valdemir",
-            image: require('../../assets/images/irmao.jpg'),
-            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
-        },
-        {
-            name: "Casa do Pastor Valdemir",
-            image: require('../../assets/images/irmao.jpg'),
-            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
-        },
-        {
-            name: "Casa do Pastor Valdemir",
-            image: require('../../assets/images/irmao.jpg'),
-            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
-        },
-        {
-            name: "Casa do Pastor Valdemir",
-            image: require('../../assets/images/irmao.jpg'),
-            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
-        },
-        {
-            name: "Casa do Pastor Valdemir",
-            image: require('../../assets/images/irmao.jpg'),
-            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
-        },
-        {
-            name: "Casa do Pastor Valdemir",
-            image: require('../../assets/images/irmao.jpg'),
-            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
-        },
-        {
-            name: "Casa do Pastor Valdemir",
-            image: require('../../assets/images/irmao.jpg'),
-            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
-        },
-        {
-            name: "Casa do Pastor Valdemir",
-            image: require('../../assets/images/irmao.jpg'),
-            images: [require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg'), require('../../assets/images/irmao.jpg')]
-        },
-    ];
+    const [locations, setLocations] = useState([]);
 
     // Utilize a constante 'locations' no seu código onde for necessário.
+    useEffect(() => {
+        StarService.getStars((stars) => {
+            setLocations(stars)
+        })
+    }, [])
     return (
         <SafeAreaView style={style.container}>
             {/* <View style={[style.header, style.elevationBottom]}>

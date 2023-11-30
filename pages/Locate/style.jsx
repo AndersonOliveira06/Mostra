@@ -14,6 +14,14 @@ const style = StyleSheet.create({
         flex: 1,
         // position: 'relative'
     },
+
+    button: {
+        borderRadius: 20,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10,
+    },
     
     overlay: {
         position: "absolute",
@@ -39,9 +47,10 @@ const style = StyleSheet.create({
     },
 
     locate: {
-        flex: 2,
+        flex: 1.2,
         flexDirection: "row",
         alignItems: "center",
+        marginBottom: 5,
         gap: 10,
     },
     
@@ -53,7 +62,6 @@ const style = StyleSheet.create({
     
     buttonsView: {
         flex: 1,
-        // backgroundColor: "red",
         gap: 2,
         flexDirection: "row",
         justifyContent: "flex-end",
@@ -109,6 +117,7 @@ const style = StyleSheet.create({
 
     textStreet:{
         fontSize: 16,
+        width: 150,
         fontWeight: "bold",
         color: "#FF6915",
     },

@@ -1,4 +1,4 @@
-import { collection, addDoc, query, where, getDocs, deleteDoc } from "firebase/firestore"
+import { collection, addDoc, query, where, getDocs, deleteDoc, doc, getDoc } from "firebase/firestore"
 import { firestore, auth } from "../firebase/firebase_config"
 
 class VisitedService {
@@ -29,33 +29,49 @@ class VisitedService {
     static getLugaresVisitadosByUser = async (callback) => {
         try {
             const lugaresVisitadosCollection = collection(firestore, "visitados")
-
+    
             const user = auth.currentUser
-            const userUID = user.uid.toString()
-
-            if (user !== null) {
-                const q = query(lugaresVisitadosCollection, where("user_id", "==", userUID))
-
-                const snapshot = await getDocs(q)
-                const lugaresVisitados = []
-                const lugaresTuristicosCollection = collection(firestore, "star")
-
-                for (const document of snapshot.docs) {
-                    const { star_id, user_id } = document.data()
-
-                    const c = query(lugaresTuristicosCollection, where("id", "==", star_id))
-
-                    const querySnapshot = await getDocs(c)
-                    const doc = querySnapshot.docs[0]
-
-                    if (doc) {
-                        const { descricao, fotos, localizacao, nome } = doc.data()
-                        lugaresVisitados.push({ star_id, user_id, nome, descricao, fotos, localizacao })
-                    }
+    
+            if (user && user.uid) {
+                const userUID = user.uid.toString()
+    
+                // Consulta para obter todos os documentos da coleção 'Visitados' para o usuário logado
+                const VisitadosQuery = query(lugaresVisitadosCollection, where("user_id", "==", userUID))
+                const VisitadosSnapshot = await getDocs(VisitadosQuery)
+    
+                let lugaresIdVisitados = []
+    
+                // Itera sobre os documentos da coleção 'Visitados'
+                for (const visitadoDoc of VisitadosSnapshot.docs) {
+                    const { star_id } = visitadoDoc.data()
+                    lugaresIdVisitados.push(star_id)
                 }
+    
+                callback(lugaresIdVisitados)
+            } else {
+                console.log("Não existe usuário logado")
+            }
+        } catch (error) {
+            console.log("Erro ao tentar pegar os dados do Firestore: ", error)
+        }
+    }
 
-                callback(lugaresVisitados)
+    static getLugaresVisitadosById = async (list, callback) => {
+        try {
+            const user = auth.currentUser
+    
+            if (user && user.uid) {
+                let lugaresVisitados = []
 
+                list.forEach(async (id) => {
+                    const docRef = doc(firestore, "star", id)
+                    const favoritoDoc = await getDoc(docRef)
+                    lugaresVisitados.push({id: favoritoDoc.id ,...favoritoDoc.data()})
+
+                    if (lugaresVisitados.length === list.length) {
+                        callback(lugaresVisitados)
+                    }
+                })
             } else {
                 console.log("Não existe usuário logado")
             }

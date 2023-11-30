@@ -35,6 +35,7 @@ const style = StyleSheet.create({
 
     modalProfile: {
         flexDirection: 'row',
+        width: "80%",
         alignItems: 'center',
         gap: 15,
     },

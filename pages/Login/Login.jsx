@@ -26,7 +26,7 @@ const Login = ({ navigation }) => {
         navigation.navigate('Register');
     };
 
-    const acaoBotao = () => {
+    const loginAction = () => {
         UsuarioService.signIn(
             email,
             password,
@@ -60,12 +60,16 @@ const Login = ({ navigation }) => {
                 />
                 <M_Button
                     title="Entrar"
-                    action={acaoBotao}
+                    action={loginAction}
+                    customStyle={{minWidth: 200}}
+                    icon = {{name: 'LogIn', size: 30, color: '#8C4117'}}
                     color="amarelo"
                 />
                 <M_Button
-                    title="Cadastrar"
+                    title="Criar conta"
                     action={goToRegister}
+                    customStyle={{minWidth: 200}}
+                    icon = {{name: 'Plus', size: 30, color: '#17548C'}}
                     color="azul"
                 />
             </View>

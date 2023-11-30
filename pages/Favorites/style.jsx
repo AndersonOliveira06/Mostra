@@ -1,9 +1,38 @@
 import { StyleSheet } from "react-native";
+import { Dimensions } from 'react-native';
 
 const style = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#FFFCEE"
+    },
+
+    cardFirstTime: {
+        flex: 1,
+        alignItems: "center",
+        backgroundColor: "rgba(0,0,0, 0.05)",
+        justifyContent: "center",
+        width: Dimensions.get('window').width - 40,
+        justifyContent: "center",
+        // paddingHorizontal: 50,
+        gap: 20,
+        marginHorizontal: 20,
+        marginBottom: 30,
+        borderRadius: 20,
+    },
+
+    firstTimeTitle:{
+        fontSize: 40,
+        width: '90%',
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "#FF6915",
+    },
+    firstTimeText: {
+        fontSize: 16,
+        fontWeight: 'normal',
+        textAlign: "center",
+        color: "#0C2F2C",
     },
 
     header: {

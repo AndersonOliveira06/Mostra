@@ -4,17 +4,18 @@ import { initializeAuth, getReactNativePersistence } from "firebase/auth"
 import { getFirestore } from "firebase/firestore"
 import { getStorage } from "firebase/storage"
 
-require('dotenv').config()
+// require('dotenv').config()
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.FIREBASE_APP_ID
-};
+  apiKey: "AIzaSyApTEC7ksByBhDYXrMHtrOaCHOOoYVgjKU",
+  authDomain: "mostra-back.firebaseapp.com",
+  projectId: "mostra-back",
+  storageBucket: "mostra-back.appspot.com",
+  messagingSenderId: "856583291117",
+  appId: "1:856583291117:web:1a2b2501fd4c5c35eb4ce4"
+}
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

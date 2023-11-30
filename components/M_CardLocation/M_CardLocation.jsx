@@ -16,10 +16,10 @@ const M_CardLocation = ({ location }) => {
         <View style={style.card}>
             <View style={style.locationGroup}>
                 <View style={style.imageView}>
-                    <Image source={location.image} style={style.image} resizeMode='contain' />
+                    <Image source={{uri: location.fotos[0]}} style={style.image} resizeMode='cover' />
                 </View>
                 <View style={style.textView}>
-                    <Text style={style.locationName}>{location.name}</Text>
+                    <Text style={style.locationName}>{location.nome}</Text>
                 </View>
             </View>
             <View>

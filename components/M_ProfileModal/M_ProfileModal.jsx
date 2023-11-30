@@ -4,10 +4,20 @@ import M_Button from '../M_Button/M_Button';
 
 import * as RootNavigation from '../../RootNavigation.js';
 
-const M_ProfileModal = ({ modalVisible, setModalVisible }) => {
+import UsuarioService from '../../BACK_END/Service/UsuarioService';
 
-  goToProfile = () => {
+const M_ProfileModal = ({ modalVisible, setModalVisible, user }) => {
+
+  const goToProfile = () => {
     RootNavigation.navigate('Profile');
+    setModalVisible(!modalVisible);
+  }
+
+  const signOut = () => {
+    UsuarioService.signOut((message) => {
+      console.log(message)
+      RootNavigation.navigate('Login');
+    });
     setModalVisible(!modalVisible);
   }
 
@@ -25,8 +35,8 @@ const M_ProfileModal = ({ modalVisible, setModalVisible }) => {
           <View style={style.modalView}>
             <View style={style.modalHeader}>
               <View style={style.modalProfile}>
-                <Image source={require('../../assets/images/irmao.jpg')} style={style.modalProfileImage} />
-                <Text style={style.modalTitle}>Valdemir Queiroz</Text>
+                <Image source={{ uri: user.photoURL }} style={style.modalProfileImage} />
+                <Text style={style.modalTitle}>{user.displayName}</Text>
               </View>
               <M_Button
                 action={() => setModalVisible(!modalVisible)}
@@ -36,13 +46,13 @@ const M_ProfileModal = ({ modalVisible, setModalVisible }) => {
             <View style={style.modalBody}>
               <M_Button
                 action={goToProfile}
-                customStyle={{fontWeight: 400 }}
+                customStyle={{ fontWeight: 400 }}
                 icon={{ name: 'UserRound', size: 30, color: '#0C2F2C' }}
                 title="Configurar perfil"
               />
               <M_Button
                 customStyle={{ marginLeft: -4.5, fontWeight: 400 }}
-                action={() => {}}
+                action={signOut}
                 icon={{ name: 'LogOut', size: 40, color: '#0C2F2C' }}
                 title="Sair da conta"
               />

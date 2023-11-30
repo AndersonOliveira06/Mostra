@@ -14,14 +14,16 @@ class StarService {
 
                 const star = {
                     id: document.id,
+                    curiosidades: data.curiosidades,
                     descricao: data.descricao,
                     fotos: data.fotos,
+                    ilustracao: data.ilustracao,
                     localizacao: {
                         endereco: data.localizacao.endereco,
                         latitude: data.localizacao.latitude,
                         longitude: data.localizacao.longitude,
                     },
-                    name: data.name,
+                    nome: data.nome,
                 }
 
                 stars.push(star)

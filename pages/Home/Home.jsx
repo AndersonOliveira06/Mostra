@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { View, Text, Pressable, Image, StatusBar } from 'react-native';
+import { View, Text, Pressable, Image, StatusBar, ToastAndroid } from 'react-native';
 
 import {
     requestForegroundPermissionsAsync,
@@ -10,6 +10,7 @@ import {
 } from 'expo-location';
 
 import MapView, { Marker } from 'react-native-maps';
+import { PROVIDER_GOOGLE } from 'react-native-maps';
 import style from './style';
 import M_Button from '../../components/M_Button/M_Button';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -17,6 +18,9 @@ import M_Icon from '../../components/M_Icon/M_Icon';
 
 import AddressLoader from '../../components/loadingComponents/AddressLoader/AddressLoader';
 import M_ProfileModal from '../../components/M_ProfileModal/M_ProfileModal';
+
+import UsuarioService from '../../BACK_END/Service/UsuarioService';
+import StarService from '../../BACK_END/Service/StarService';
 
 const Home = ({ navigation }) => {
     const styleMap = [
@@ -74,6 +78,9 @@ const Home = ({ navigation }) => {
         }
     ]
 
+    const [user, setUser] = useState({});
+    const [locations, setLocations] = useState([]);
+
     let markers = [
         { latitude: -5.19845843651499, longitude: -39.2959195081123, title: 'Igreja da Matriz', description: 'Igrejinha só o show da cidade', image: require('../../assets/images/igreja.png') },
         { latitude: -5.198914163000362, longitude: -39.29808209893969, title: 'Antonio', description: 'Conselhos conselheiros aa', image: require('../../assets/images/antonio.png') }
@@ -93,6 +100,12 @@ const Home = ({ navigation }) => {
 
     const mapRef = useRef(null);
 
+    useEffect(() => {
+        setUser(UsuarioService.getAccountInfo())
+        StarService.getStars((stars) => {
+            setLocations(stars)
+        })
+    }, [])
 
     useEffect(() => {
         requestLocationPermission();
@@ -134,6 +147,17 @@ const Home = ({ navigation }) => {
         }
     }
 
+    showToast = () => {
+        ToastAndroid.showWithGravityAndOffset(
+            'Te localizei!',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            105,
+            -500,
+          );
+      
+    };
+
     goToLocations = () => {
         navigation.navigate('Locations');
     }
@@ -147,23 +171,24 @@ const Home = ({ navigation }) => {
             mapRef.current.animateCamera({
                 center: location.coords
             })
+            showToast();
         }
     }
 
     const renderMarkers = () => {
-        return markers.map((marker, index) => {
+        if(locations.length == 0) return null;
+        return locations.map((marker, index) => {
             return (
                 <View key={index}>
                     <Marker
                         coordinate={{
-                            latitude: marker.latitude,
-                            longitude: marker.longitude,
+                            latitude: marker.localizacao.latitude,
+                            longitude: marker.localizacao.longitude,
                         }}
-                        title={marker.title}
-                        description={marker.description}
+                        title={marker.nome}
                     >
                         <Image
-                            source={marker.image}
+                            source={{uri: marker.ilustracao}}
                             style={style.marker}
                             resizeMode='contain'
                         />
@@ -175,7 +200,7 @@ const Home = ({ navigation }) => {
 
     return (
         <SafeAreaView style={style.container}>
-            <StatusBar backgroundColor={"#FFFCEE"} barStyle={'dark-content'}/>
+            <StatusBar backgroundColor={"#FFFCEE"} barStyle={'dark-content'} />
             <View style={[style.header, style.elevationBottom]}>
                 {loadingAddress ? <AddressLoader /> : null}
                 <View>
@@ -183,7 +208,7 @@ const Home = ({ navigation }) => {
                     <Text style={style.streetText}>{street}</Text>
                     <Text style={style.districtText}>{district}</Text>
                 </View>
-                <M_ProfileModal style={{ display: 'none' }} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+                <M_ProfileModal style={{ display: 'none' }} modalVisible={modalVisible} setModalVisible={setModalVisible} user={user} />
                 <M_Button
                     action={() => setModalVisible(true)}
                     icon={{ name: "UserCog", size: 40, color: '#0C2F2C' }}
@@ -192,6 +217,7 @@ const Home = ({ navigation }) => {
             <View style={style.mapView}>
                 {location &&
                     <MapView
+                        provider={PROVIDER_GOOGLE}
                         loadingEnabled={true}
                         customMapStyle={styleMap}
                         ref={mapRef}
@@ -238,7 +264,10 @@ const Home = ({ navigation }) => {
                         style.mainButton,
                     ]}
                 >
-                    <M_Icon name="MapPin" size={85} color="#FF6915" />
+                    <Image
+                        source={require('../../assets/images/Icon.png')}
+                        style={{ width: 95, height: 95 }}
+                    />
                 </Pressable>
                 <Pressable
                     onPress={goToFavorites}
@@ -250,7 +279,7 @@ const Home = ({ navigation }) => {
                     ]}
                 >
                     <M_Icon name="Star" size={45} color='#0C2F2C' />
-                    <Text style={style.mainButtonText}>Favoritos</Text>
+                    <Text style={style.mainButtonText}>Roadmap</Text>
                 </Pressable>
             </View>
         </SafeAreaView >
